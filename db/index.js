@@ -41,13 +41,24 @@ db.getbillbyid=(id)=>{
 
 db.getmyproducts=()=>{
     return new Promise((resolve,reject)=>{
-        pool.query("select * from myproducts",(err,result)=>{
+        pool.query("select * from myproducts where visible='1'",(err,result)=>{
             if(err){
                 return reject(err)
             }
             return resolve(result)
         })
     }) 
+}
+
+
+db.inserttobill=(billid,productid,quantity,rate)=>{
+    return new Promise((resolve,reject)=>{
+        pool.query("insert into bill_content values(Null,?,?,?,?,?)",billid,productid,quantity,rate,quantity*rate,(err,res)=>{
+            if(err) reject(err);
+            return resolve(res);
+        })
+    })
+
 }
 
 

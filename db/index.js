@@ -51,9 +51,12 @@ db.getmyproducts=()=>{
 }
 
 
-db.inserttobill=(billid,productid,quantity,rate)=>{
+db.inserttobill=(billid,product_id,quantity,rate)=>{
+
+ 
     return new Promise((resolve,reject)=>{
-        pool.query("insert into bill_content values(Null,?,?,?,?,?)",billid,productid,quantity,rate,quantity*rate,(err,res)=>{
+      
+        pool.query("insert into bill_content(`bill_id`,`product_id`,`quantity`,`rate`,`total`) values(?,?,?,?,?)",[billid,product_id,quantity,rate,quantity*rate],(err,res)=>{
             if(err) reject(err);
             return resolve(res);
         })

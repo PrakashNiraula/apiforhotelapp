@@ -23,5 +23,18 @@ router.route('/:id')
     }
 });
 
+router.route('/addtobill')
+.post(async(req,res,next)=>{
+    console.log(req.body)
+    
+    try {
+        res.json(await db.inserttobill(req.body.billid,req.body.productid,req.body.quantity,req.body.rate))
+        
+    } catch (error) {
+        next(error)
+        
+    }
+})
+
 
 module.exports=router;

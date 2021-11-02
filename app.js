@@ -3,6 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+//var app = require('../app');
+//var debug = require('debug')('rajgharanaapi:server');
+var http = require('http');
 
 
 const billRouter=require('./routes/bills')
@@ -29,9 +32,9 @@ app.use('/bill', billRouter);
 app.use('/myproducts',productRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+// app.use(function(req, res, next) {
+//   next(createError(404));
+// });
 
 // error handler
 app.use(function(err, req, res, next) {
@@ -44,4 +47,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+const server=http.createServer(app);
+server.listen(443,()=>{
+    console.log(`server running`);
+})
